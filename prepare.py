@@ -11,8 +11,8 @@ def prepareData(filePath, encodeMethod=''):
         data = file.read()
     
     length = len(data)
-    trainData = data[:int(length*0.9)]
-    validationData = data[int(length*0.9):]
+    trainData = data[:int(length*0.8)]
+    validationData = data[int(length*0.8):]
     
     print('Data file read')
     print('Training data length: ', len(trainData))

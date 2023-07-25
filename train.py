@@ -94,7 +94,7 @@ else:
 
     # encode shakespeare dataset to training tensor and validation tensor
     data = torch.tensor(encoding.encode(text), dtype=torch.long)
-    n = int(0.9*len(data))
+    n = int(0.8*len(data))
     trainData = data[:n]
     validationData = data[n:]
 
