@@ -14,10 +14,10 @@ from halo import Halo
 
 # hyperparameters #
 
-encodeMethod = 'r50k_base'
-dataset = '' # required if encode method isnt from tiktoken
+encodeMethod = 'default'
+dataset = 'input.txt' # required if encode method isnt from tiktoken
 samples = 8
-maxNewTokens = 64 # number of tokens per sample
+maxNewTokens = 128 # number of tokens per sample
 printConsole = False
 writeToFile = True
 
