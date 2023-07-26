@@ -1,8 +1,6 @@
 .ipynb_checkpoints/
 .vscode
 __pycache__/
-# *.bin
-# *.pt
-# *.txt
-models/shakespeareGPT1500.pt
-resume/shakespeareGPT1500.pt
+*.bin
+*.pt
+*.txt
