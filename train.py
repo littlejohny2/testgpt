@@ -19,17 +19,17 @@ from halo import Halo
 batchSize = 32 # how many independent sequences will we process in parallel?
 blockSize = 64 # what is the maximum context length for predictions?
 dataset = 'input.txt'
-encodeMethod = 'r50k_base'
+encodeMethod = 'default'
 
 # model
-nEmbed = 384
-headNumber = 6
-layerNumber = 6
+nEmbed = 128
+headNumber = 2
+layerNumber = 2
 dropout = 0.2
 
 init = 'resume'
 saveCheckpoints = True
-modelName = 'shakespeareGPT'
+modelName = 'minishakespeareGPT'
 
 # training
 maxIterations = 50000

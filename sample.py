@@ -16,8 +16,8 @@ from halo import Halo
 
 encodeMethod = 'r50k_base'
 dataset = '' # required if encode method isnt from tiktoken
-samples = 10
-maxNewTokens = 256 # number of tokens per sample
+samples = 8
+maxNewTokens = 64 # number of tokens per sample
 printConsole = False
 writeToFile = True
 
