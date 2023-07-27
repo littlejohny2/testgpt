@@ -8,8 +8,6 @@ import numpy as np
 import tiktoken
 from datasets import load_dataset # huggingface datasets
 
-from halo import Halo
-
 
 
 # params #

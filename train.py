@@ -17,14 +17,14 @@ from halo import Halo
 
 # data
 batchSize = 32 # how many independent sequences will we process in parallel?
-blockSize = 128 # what is the maximum context length for predictions?
+blockSize = 64 # what is the maximum context length for predictions?
 dataset = 'wikitext.txt'
 encodeMethod = 'r50k_base'
 
 # model
 nEmbed = 384
-headNumber = 6
-layerNumber = 6
+headNumber = 4
+layerNumber = 4
 dropout = 0.2
 
 init = 'new'
