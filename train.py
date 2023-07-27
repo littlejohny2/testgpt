@@ -8,7 +8,7 @@ from torch.nn import functional as functional
 
 import tiktoken
 from model import GenerativePretrainedTransformer, Config
-from prepare import prepareData
+from prepare import prepareTextFileData
 
 from halo import Halo
 
@@ -17,19 +17,19 @@ from halo import Halo
 
 # data
 batchSize = 32 # how many independent sequences will we process in parallel?
-blockSize = 64 # what is the maximum context length for predictions?
-dataset = 'input.txt'
-encodeMethod = 'default'
+blockSize = 128 # what is the maximum context length for predictions?
+dataset = 'wikitext.txt'
+encodeMethod = 'r50k_base'
 
 # model
-nEmbed = 128
-headNumber = 2
-layerNumber = 2
+nEmbed = 384
+headNumber = 6
+layerNumber = 6
 dropout = 0.2
 
-init = 'resume'
+init = 'new'
 saveCheckpoints = True
-modelName = 'minishakespeareGPT'
+modelName = 'wikiGPT'
 
 # training
 maxIterations = 50000
@@ -55,14 +55,14 @@ if encodeMethod == 'r50k_base':
     vocabSize = 50304
 
     fileName = os.path.basename(dataDir)
-    trainBin = os.path.join(os.path.dirname(dataDir), os.path.splitext(fileName)[0]+'Train.bin')
-    validationBin = os.path.join(os.path.dirname(dataDir), os.path.splitext(fileName)[0]+'Validation.bin')
+    trainBin = os.path.join(os.path.dirname(dataDir), os.path.splitext(fileName)[0]+'train.bin')
+    validationBin = os.path.join(os.path.dirname(dataDir), os.path.splitext(fileName)[0]+'validation.bin')
 
     if not os.path.exists(trainBin) or not os.path.exists(validationBin):
-        prepareData(dataDir, 'r50k_base')
+        prepareTextFileData(dataDir, 'r50k_base')
 
-    trainData = np.memmap(os.path.join(os.path.dirname(dataDir), os.path.splitext(fileName)[0]+'Train.bin'), dtype=np.uint16, mode='r')
-    validationData = np.memmap(os.path.join(os.path.dirname(dataDir), os.path.splitext(fileName)[0]+'Validation.bin'), dtype=np.uint16, mode='r')
+    trainData = np.memmap(os.path.join(os.path.dirname(dataDir), os.path.splitext(fileName)[0]+'train.bin'), dtype=np.uint16, mode='r')
+    validationData = np.memmap(os.path.join(os.path.dirname(dataDir), os.path.splitext(fileName)[0]+'validation.bin'), dtype=np.uint16, mode='r')
 
     encoded = True
 
@@ -230,7 +230,3 @@ for steps in range(maxIterations+1):
     optimizer.step()
 
 trainingLoading.succeed(text='Training: success')
-
-# # the output
-# context = torch.zeros((1, 1), dtype=torch.long, device=device)
-# print(encoding.decode(model.generate(context, maxNewTokens=1000)[0].tolist()))

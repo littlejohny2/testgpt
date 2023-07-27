@@ -3,9 +3,13 @@ import numpy as np
 
 import tiktoken
 
-def prepareData(filePath, encodeMethod=''):
+from halo import Halo
 
-    print('Preparing data...')
+preparingLoading = Halo(text='Preparing data: ', spinner='line', color='white', placement='right')
+
+def prepareTextFileData(filePath, encodeMethod=''):
+
+    preparingLoading.start()
 
     with open(filePath, 'r') as file:
         data = file.read()
@@ -14,6 +18,8 @@ def prepareData(filePath, encodeMethod=''):
     trainData = data[:int(length*0.8)]
     validationData = data[int(length*0.8):]
     
+    preparingLoading.stop()
+
     print('Data file read')
     print('Training data length: ', len(trainData))
     print('Validation data length: ', len(validationData))
@@ -32,8 +38,8 @@ def prepareData(filePath, encodeMethod=''):
     validationIds = np.array(validationIds, dtype=np.uint16)
 
     fileName = os.path.basename(filePath)
-    trainBin = os.path.join(os.path.dirname(filePath), os.path.splitext(fileName)[0]+'Train.bin')
-    validationBin = os.path.join(os.path.dirname(filePath), os.path.splitext(fileName)[0]+'Validation.bin')
+    trainBin = os.path.join(os.path.dirname(filePath), os.path.splitext(fileName)[0]+'train.bin')
+    validationBin = os.path.join(os.path.dirname(filePath), os.path.splitext(fileName)[0]+'validation.bin')
 
     trainIds.tofile(trainBin)
     validationIds.tofile(validationBin)
